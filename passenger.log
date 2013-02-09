@@ -1,0 +1,1 @@
+2013/02/09 04:26:20 [emerg] 21015#0: bind() to unix:/srv/http/achievements/tmp/sockets/passenger.socket failed (2: No such file or directory)
