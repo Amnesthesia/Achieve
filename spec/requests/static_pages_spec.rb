@@ -1,34 +1,32 @@
 require 'spec_helper'
 
 describe 'Static pages' do
-  
+
+    # Page is our subject for these tests, as in, default variable to call methods on
+    subject{ page }
+        
     describe 'Home page' do
-      it "should have the h1 'Achievement: Unlocked'" do 
-        visit '/static_pages/home'
-        page.should have_selector('h1', :text => 'Welcome!')
+      before(:each) do
+        visit root_path
       end
       
-      it "should have the base title" do
-        visit '/static_pages/home'
-        page.should have_selector('title', :text => "Achievements: Unlocked")
-      end
+
       
+      it { should have_selector('h1', :text => 'Achievement') }
+      
+      it { should have_selector('title', :text => full_title("") ) }
+      
+      it { should_not have_selector('title', text: full_title('Home')) }
     end
     
     describe "Help page" do
-
-      it "should have the content 'Help'" do
-        visit '/static_pages/help'
-        page.should have_content('Help')
-      end
-   
+      before{ visit help_path }
+      it { should have_content('Help') }
     end
    
     describe "About page" do
-      it "should have some kind of 'about' content" do
-        visit '/static_pages/about'
-        page.should have_content('What is Achievements?')
-      end
+      before{ visit about_path }
+      it { should have_content('What is Achievements?') }
     end
    
 

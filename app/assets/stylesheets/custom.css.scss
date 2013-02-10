@@ -1,0 +1,98 @@
+@import "bootstrap";
+
+// Colors
+$backgroundGray: #202020;
+$backgroundBlue: #1423dd;
+$sitenameTopleft: #e7e7e7;
+
+$contentText: #707070;
+$defaultText: #707070;
+
+
+// Sizes
+
+html
+{
+  overflow-y: scroll;
+}
+
+body
+{
+ background-color: $backgroundGray; 
+ color: $defaultText;
+}
+
+div.banner
+{
+  background-color: $backgroundBlue;
+  width: 100%;
+  height: 400px;
+}
+
+div.hero-unit
+{
+  background-color: transparent;
+  width: 600px;
+  height: 300px;
+
+}
+
+div.content
+{
+  background-color: $backgroundGray;
+  width: 100%;
+  min-height: 500px;
+  padding: 20px;
+  border-top: 1px solid #555;
+  
+  h2
+  {
+    font-size: 2.3em;
+    letter-spacing: -2px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+}
+
+.left
+{
+  float: left;
+}
+
+.right
+{
+  float: right;
+}
+
+.center
+{
+  margin: auto auto;
+}
+
+div.site_name h1
+{
+  color: $sitenameTopleft;
+  font-size: 21pt;
+  font-family: Sans, Arial;
+  font-weight: bold;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-top: 0px;
+  margin-left: 50px;
+}
+
+header.navbar
+{
+  height: 50px;
+  width: 100%;
+}
+
+.get_started
+{
+ width: 150px; 
+ margin-top: -20px;
+}
+.clear
+{
+  clear: both;
+}
