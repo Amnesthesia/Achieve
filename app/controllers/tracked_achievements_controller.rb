@@ -1,0 +1,2 @@
+class TrackedAchievementsController < ApplicationController
+end
