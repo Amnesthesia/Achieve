@@ -22,14 +22,13 @@ require 'spec_helper'
 
 describe User do
   
-  before{ @user =  User.new(name: "Test", email: "test@meh.meh", password: "nothing", password_confirmation: "nothing", age: 99, gender: 3, city: "None", zipcode: "1921", img_path: nil, role_id: 1) }
+  before{ @user =  User.new(name: "Test", email: "test@meh.meh", password: "foobar", password_confirmation: "foobar", age: 99, gender: 3, city: "None", zipcode: "1921", img_path: nil, role_id: 1) }
   subject{ @user }
   
   it{ should respond_to(:name) } #Check so there's a name
   it{ should respond_to(:email) } #Check so there's an email
   it{ should respond_to(:password) } #Check so there's a password
   it{ should respond_to(:password_confirmation) }
-  it{ should respond_to(:password_digest) }
   it{ should respond_to(:age) } #Check so there's an age
   it{ should respond_to(:zipcode) } #Check so there's a zipcode
   it{ should respond_to(:authenticate) }
