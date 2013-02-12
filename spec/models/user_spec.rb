@@ -2,34 +2,37 @@
 #
 # Table name: users
 #
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  email      :string(255)
-#  password   :string(255)
-#  age        :integer
-#  gender     :integer
-#  city       :string(255)
-#  country    :string(255)
-#  zipcode    :string(255)
-#  img_path   :string(255)
-#  role_id    :integer
-#  role_type  :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id              :integer          not null, primary key
+#  name            :string(255)
+#  email           :string(255)
+#  password_digest :string(255)
+#  age             :integer
+#  gender          :integer
+#  city            :string(255)
+#  country         :string(255)
+#  zipcode         :string(255)
+#  img_path        :string(255)
+#  role_id         :integer
+#  role_type       :string(255)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #
 
 require 'spec_helper'
 
 describe User do
   
-  before{ @user =  User.new(name: "Test", email: "test@meh.meh", password: "nothing", age: 99, gender: 3, city: "None", zipcode: "1921", img_path: nil, role_id: 1) }
+  before{ @user =  User.new(name: "Test", email: "test@meh.meh", password: "nothing", password_confirmation: "nothing", age: 99, gender: 3, city: "None", zipcode: "1921", img_path: nil, role_id: 1) }
   subject{ @user }
   
   it{ should respond_to(:name) } #Check so there's a name
   it{ should respond_to(:email) } #Check so there's an email
   it{ should respond_to(:password) } #Check so there's a password
+  it{ should respond_to(:password_confirmation) }
+  it{ should respond_to(:password_digest) }
   it{ should respond_to(:age) } #Check so there's an age
   it{ should respond_to(:zipcode) } #Check so there's a zipcode
+  it{ should respond_to(:authenticate) }
   
   it{ should be_valid } #Check so the user was created properly
   
@@ -61,6 +64,43 @@ describe User do
   describe "test for gender between 1-3" do
     before{ @user.gender = 4 }
     it{ should_not be_valid }
+  end
+  
+  describe "test for password presence" do
+    before { @user.password = @user.password_confirmation = " " }
+    it { should_not be_valid }
+  end
+  
+  describe "test for password confirmation match" do
+    before{ @user.password_confirmation = "mismatch" }
+    it { should_not be_valid }
+  end
+  
+  describe "when password confirmation is nil" do
+    before{ @user.password_confirmation = nil }
+    it { should_not be_valid }
+  end
+  
+  describe "passwords should be at least 8 characters" do
+    before { @user.password = @user.password_confirmation = "a"*7 }
+    it{ should be_invalid }
+  end
+     
+  describe "return value of authentication method" do
+    before{ @user.save }
+    let(:found_user){ User.find_by_email(@user.email) }
+    
+    describe "with valid password" do
+      it{ should == found_user.authenticate(@user.password) }  
+    end
+    
+    describe "with invalid password" do
+      let(:user_with_invalid_pw){ found_user.authenticate("invalid") }
+      
+      it{ should_not == user_for_invalid_pw }
+      specify{ user_for_invalid_pw.should be_false }
+    end
+    
   end
   
 end

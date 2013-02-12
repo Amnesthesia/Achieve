@@ -2,24 +2,26 @@
 #
 # Table name: users
 #
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  email      :string(255)
-#  password_digest   :string(255)
-#  age        :integer
-#  gender     :integer
-#  city       :string(255)
-#  country    :string(255)
-#  zipcode    :string(255)
-#  img_path   :string(255)
-#  role_id    :integer
-#  role_type  :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id              :integer          not null, primary key
+#  name            :string(255)
+#  email           :string(255)
+#  password_digest :string(255)
+#  age             :integer
+#  gender          :integer
+#  city            :string(255)
+#  country         :string(255)
+#  zipcode         :string(255)
+#  img_path        :string(255)
+#  role_id         :integer
+#  role_type       :string(255)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :age, :city, :country, :email, :gender, :img_path, :name, :password_digest, :role_id, :zipcode
+  
+  attr_accessible :age, :city, :country, :email, :gender, :img_path, :name, :password, :password_confirmation, :password_digest, :role_id, :zipcode
+  has_secure_password
   belongs_to :role
   has_many :users_achievements
   has_many :achievements, :through => :users_achievements
@@ -31,13 +33,17 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :name, length: { maximum: 50 }
   
-  validates :password, presence: true
-  validates :password, confirmation: true
+  validates :password, presence: true, 
+                       length: { minimum: 8 }
+  validates :password_confirmation, presence: true
   
   validates :age, presence: true
 
   VALID_EMAIL = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, uniqueness: { case_sensitive: false }, presence: true, format: { with: VALID_EMAIL }, length: { maximum: 60 }
+  validates :email, uniqueness: { case_sensitive: false }, 
+                    presence: true, 
+                    format: { with: VALID_EMAIL }, 
+                    length: { maximum: 60 }
   
   validates :zipcode, presence: true
   validates :zipcode, numericality: true
