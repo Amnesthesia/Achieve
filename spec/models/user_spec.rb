@@ -22,7 +22,7 @@ require 'spec_helper'
 
 describe User do
   
-  before{ @user =  User.new(name: "Test", email: "test@meh.meh", password: "foobar", password_confirmation: "foobar", age: 99, gender: 3, city: "None", zipcode: "1921", img_path: nil, role_id: 1) }
+  before{ @user =  User.new(name: "Test", email: "test@meh.meh", password: "password1", password_confirmation: "password1", age: 99, gender: 3, city: "None", zipcode: "1921", img_path: nil, role_id: 1) }
   subject{ @user }
   
   it{ should respond_to(:name) } #Check so there's a name
@@ -96,8 +96,8 @@ describe User do
     describe "with invalid password" do
       let(:user_with_invalid_pw){ found_user.authenticate("invalid") }
       
-      it{ should_not == user_for_invalid_pw }
-      specify{ user_for_invalid_pw.should be_false }
+      it{ should_not == user_with_invalid_pw }
+      specify{ user_with_invalid_pw.should be_false }
     end
     
   end
