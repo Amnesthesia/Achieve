@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130211204127) do
+ActiveRecord::Schema.define(:version => 20130212212836) do
 
   create_table "achievements", :force => true do |t|
     t.string   "title"
@@ -47,6 +47,18 @@ ActiveRecord::Schema.define(:version => 20130211204127) do
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
   end
+
+  create_table "activities", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "achievement_id"
+    t.text     "activity"
+    t.datetime "time"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "activities", ["achievement_id"], :name => "index_activities_on_achievement_id"
+  add_index "activities", ["user_id"], :name => "index_activities_on_user_id"
 
   create_table "categories", :force => true do |t|
     t.integer  "category_id"
@@ -117,7 +129,7 @@ ActiveRecord::Schema.define(:version => 20130211204127) do
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
-    t.string   "password"
+    t.string   "password_digest"
     t.integer  "age"
     t.integer  "gender"
     t.string   "city"
@@ -126,9 +138,11 @@ ActiveRecord::Schema.define(:version => 20130211204127) do
     t.string   "img_path"
     t.integer  "role_id"
     t.string   "role_type"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
 
   create_table "users_achievements", :force => true do |t|
     t.integer  "achievement_id"
