@@ -3,8 +3,9 @@
 # Table name: users
 #
 #  id              :integer          not null, primary key
-#  name            :string(255)
-#  email           :string(255)
+#  first_name      :string(255)
+#  last_name       :string(255)
+#  username        :string(255)
 #  password_digest :string(255)
 #  age             :integer
 #  gender          :integer
@@ -13,19 +14,22 @@
 #  zipcode         :string(255)
 #  img_path        :string(255)
 #  role_id         :integer
-#  role_type       :string(255)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  email           :string(255)
 #
 
 require 'spec_helper'
 
 describe User do
   
-  before{ @user =  User.new(name: "Test", email: "test@meh.meh", password: "password1", password_confirmation: "password1", age: 99, gender: 3, city: "None", zipcode: "1921", img_path: nil, role_id: 1) }
+  before{ @user =  User.new(username: "Test", first_name: "Test", last_name: "Testsson", email: "test@meh.meh", password: "password1", password_confirmation: "password1", age: 99, gender: 3, city: "None", zipcode: "1921", img_path: nil) }
   subject{ @user }
   
-  it{ should respond_to(:name) } #Check so there's a name
+  it{ should respond_to(:first_name) } #Check so there's a name
+  it{ should respond_to(:last_name) } #Check so there's a surname
+  it{ should respond_to(:username) } #Check for username
+ 
   it{ should respond_to(:email) } #Check so there's an email
   it{ should respond_to(:password) } #Check so there's a password
   it{ should respond_to(:password_confirmation) }
@@ -36,7 +40,7 @@ describe User do
   it{ should be_valid } #Check so the user was created properly
   
   describe "test for lack of name" do
-    before{ @user.name = " " }
+    before{ @user.first_name = @user.last_name = @user.username = " " }
     it { should_not be_valid }
   end 
   

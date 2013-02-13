@@ -3,8 +3,9 @@
 # Table name: users
 #
 #  id              :integer          not null, primary key
-#  name            :string(255)
-#  email           :string(255)
+#  first_name      :string(255)
+#  last_name       :string(255)
+#  username        :string(255)
 #  password_digest :string(255)
 #  age             :integer
 #  gender          :integer
@@ -13,16 +14,15 @@
 #  zipcode         :string(255)
 #  img_path        :string(255)
 #  role_id         :integer
-#  role_type       :string(255)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  email           :string(255)
 #
 
 class User < ActiveRecord::Base
-  
-  attr_accessible :age, :city, :country, :email, :gender, :img_path, :name, :password, :password_confirmation, :password_digest, :role_id, :zipcode
-  has_secure_password
   belongs_to :role
+  attr_accessible :age, :city, :country, :first_name, :gender, :img_path, :last_name, :password_digest, :username, :zipcode, :email, :password, :password_confirmation
+  has_secure_password
   has_many :users_achievements
   has_many :achievements, :through => :users_achievements
   
@@ -30,8 +30,11 @@ class User < ActiveRecord::Base
   before_save { |user| user.email = email.downcase }
   
   # Lots of validation comes here!
-  validates :name, presence: true
-  validates :name, length: { maximum: 50 }
+  validates :first_name, presence: true
+  validates :first_name, length: { maximum: 30 }
+  
+  validates :last_name, presence: true, length: { maximum: 40 }
+  validates :username, presence: true, length: { maximum: 40 }
   
   validates :password, presence: true, 
                        length: { minimum: 8 }

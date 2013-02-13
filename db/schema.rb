@@ -11,33 +11,33 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130212212836) do
+ActiveRecord::Schema.define(:version => 20130213184255) do
 
   create_table "achievements", :force => true do |t|
     t.string   "title"
-    t.text     "full_description"
-    t.text     "short_description"
-    t.decimal  "base_points"
-    t.datetime "time_added"
-    t.datetime "expires"
+    t.string   "full_description"
+    t.string   "short_description"
+    t.integer  "base_points"
     t.string   "img_path"
     t.boolean  "is_global"
     t.boolean  "can_coop"
     t.boolean  "request_review"
     t.boolean  "has_parents"
+    t.datetime "expires"
     t.integer  "user_id"
-    t.string   "user_type"
     t.integer  "location_id"
-    t.string   "location_type"
     t.integer  "type_id"
-    t.string   "type_type"
-    t.integer  "mode_id"
-    t.string   "mode_type"
     t.integer  "category_id"
-    t.string   "category_type"
+    t.integer  "mode_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
+
+  add_index "achievements", ["category_id"], :name => "index_achievements_on_category_id"
+  add_index "achievements", ["location_id"], :name => "index_achievements_on_location_id"
+  add_index "achievements", ["mode_id"], :name => "index_achievements_on_mode_id"
+  add_index "achievements", ["type_id"], :name => "index_achievements_on_type_id"
+  add_index "achievements", ["user_id"], :name => "index_achievements_on_user_id"
 
   create_table "achievements_achievements", :force => true do |t|
     t.integer  "achievement_id"
@@ -127,8 +127,9 @@ ActiveRecord::Schema.define(:version => 20130212212836) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "name"
-    t.string   "email"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "username"
     t.string   "password_digest"
     t.integer  "age"
     t.integer  "gender"
@@ -137,12 +138,12 @@ ActiveRecord::Schema.define(:version => 20130212212836) do
     t.string   "zipcode"
     t.string   "img_path"
     t.integer  "role_id"
-    t.string   "role_type"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.string   "email"
   end
 
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["role_id"], :name => "index_users_on_role_id"
 
   create_table "users_achievements", :force => true do |t|
     t.integer  "achievement_id"
