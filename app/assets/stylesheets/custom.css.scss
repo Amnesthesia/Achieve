@@ -1,59 +1,55 @@
 @import "bootstrap";
 
+
 // Colors
 $backgroundGray: #202020;
-$backgroundBlue: #1423dd;
+//$backgroundBlue: #1423dd;
+
+
+$backgroundBlue: "transparent";
 $sitenameTopleft: #e7e7e7;
+
+
+// Background settings
+
+// Yellow:
+//$backgroundImg: url("bgyellow.jpg");
+//$bgYOffset: -1599px;
+
+// Blue:
+$bgYOffset: -390px;
+$backgroundImg: url("bgblue.jpg");
+
 
 $contentText: #707070;
 $defaultText: #707070;
+$articleWhite: #EFEFEF;
 
+@function black($opacity){
+    @return rgba(0,0,0,$opacity)
+}
+@function white($opacity){
+    @return rgba(255,255,255,$opacity)
+}
+
+@mixin box_sizing
+{
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@mixin box-emboss($opacity, $opacity2){
+    box-shadow:white($opacity) 0 1px 0, inset black($opacity2) 0 1px 0;
+}
+
+@mixin letterpress($opacity){
+    text-shadow:white($opacity) 0 1px 0;
+}
 
 // Sizes
 
-html
-{
-  overflow-y: scroll;
-}
-
-body
-{
- background-color: $backgroundGray; 
- color: $defaultText;
-}
-
-div.banner
-{
-  background-color: $backgroundBlue;
-  width: 100%;
-  height: 400px;
-}
-
-div.hero-unit
-{
-  background-color: transparent;
-  width: 600px;
-  height: 300px;
-
-}
-
-div.content
-{
-  background-color: $backgroundGray;
-  width: 100%;
-  min-height: 500px;
-  padding: 20px;
-  border-top: 1px solid #555;
-  
-  h2
-  {
-    font-size: 2.3em;
-    letter-spacing: -2px;
-    margin-bottom: 30px;
-    text-align: center;
-  }
-}
-
+/* Alignments */
 .left
 {
   float: left;
@@ -69,30 +65,149 @@ div.content
   margin: auto auto;
 }
 
-div.site_name h1
-{
-  color: $sitenameTopleft;
-  font-size: 21pt;
-  font-family: Sans, Arial;
-  font-weight: bold;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  margin-top: 0px;
-  margin-left: 50px;
-}
-
-header.navbar
-{
-  height: 50px;
-  width: 100%;
-}
-
-.get_started
-{
- width: 150px; 
- margin-top: -20px;
-}
 .clear
 {
   clear: both;
+}
+
+/* Main wrappers */
+
+// Header 
+header
+{
+  div.site_name h1
+  {
+    color: $sitenameTopleft;
+    font-size: 21pt;
+    font-family: Sans, Arial;
+    font-weight: bold;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 0px;
+    margin-left: 50px;
+  }
+  .navbar
+  {
+    height: 50px;
+    width: 100%;
+  }
+}
+
+// Content elements
+html
+{
+  overflow-y: scroll;
+  body
+  {
+    background-color: $backgroundGray;
+    color: $defaultText;
+    
+    div.wrapper
+    {
+      background-image: $backgroundImg;
+      background-position: center center;
+      
+      div.banner
+      {
+        background-color: $backgroundBlue;
+        width: 100%;
+        height: 400px;
+   
+        .get_started
+        { 
+          width: 150px; 
+          margin-top: -20px;
+        }
+      }
+  
+      div.banner-thin
+      {
+        background-color: $backgroundBlue;
+        width: 100%;
+        height: 200px;
+        border-bottom: 1px solid white;
+        
+        div.lower-banner
+        {
+          padding-top: 100px;
+          
+          div.pic
+          {
+  
+          }
+
+          div.title h1
+          {
+            color: #696969;
+            @include letterpress(0.5);
+          }
+        }
+      }
+      
+      // Container
+      div.content
+      {
+        background-color: $backgroundGray;
+        width: 100%;
+        min-height: 500px;
+        border-top: 1px solid #555;
+  
+        h2
+        {
+          font-size: 2.3em;
+          letter-spacing: -2px;
+          margin-bottom: 30px;
+          text-align: center;
+        }
+      }
+
+      div.content-wrapper
+      {
+        background: $backgroundGray;
+        border-top: 1px solid #000;
+        width: 100%;
+        
+        div.article
+        {
+          //@include box-emboss(0.8, 0.4);
+          min-height: 500px;
+          background: transparent;
+          margin-top: -1px;
+          
+          div.article-content
+          {
+            background: $articleWhite;
+          }
+        }
+
+        div.bgimg
+        {
+          background-image: $backgroundImg;
+          background-position: center $bgYOffset;
+          margin-top: -2px;
+          border-left: 1px solid white;
+          border-right: 1px solid white;
+          border-bottom: 1px solid white;
+        }
+      }
+    }
+  }
+}
+
+
+div.hero-unit
+{
+  background-color: transparent;
+  width: 600px;
+  height: 300px;
+}
+
+.debug_dump
+{
+  clear: both;
+  float: left;
+  width: 95%;
+  margin-top: 45px;
+  @include box_sizing;
+  @include box-emboss(0.8, 0.05);
 }

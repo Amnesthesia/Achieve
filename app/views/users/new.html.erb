@@ -1,3 +1,58 @@
 <% provide(:title, "Join" ) %>
-<h2>Come play</h2>
-<p>Find me in app/views/users/new.html.erb</p>
+<%= render 'layouts/frontpagebanner' %>
+<div class="content">
+	<div class="container">
+		<h1>Come play</h1>
+		<%= form_for(@user) do |f| %>
+		<div class="row">
+			<div class="span4 offset2">
+					
+					<%= f.label :username %>
+					<%= f.text_field :username %>
+					
+					<%= f.label :email %>
+					<%= f.text_field :email %>
+					
+					<%= f.label :password %>
+					<%= f.password_field :password %>
+					
+					<%= f.label :password_confirmation %>
+					<%= f.password_field :password_confirmation %>
+				</div>
+				<div class="span4">
+					<%= f.label :first_name %>
+					<%= f.text_field :first_name %>
+					
+					<%= f.label :last_name %>
+					<%= f.text_field :last_name %>
+					
+					<%= f.label :city %>
+					<%= f.text_field :city %>
+					
+					<%= f.label :zipcode %>
+					<%= f.text_field :zipcode %>
+					
+					<%= f.label :country %>
+					<%= f.country_select :country %>
+					
+					<%= f.label :age %>
+					<%= f.text_field :age %>
+					
+					<%= f.label :gender %>
+					<%= f.radio_button :gender, 0 %> Male&nbsp;
+					<%= f.radio_button :gender, 1 %> Female&nbsp;
+					<%= f.radio_button :gender, 2 %> Cybernetic&nbsp;
+					
+					
+			</div>
+			<div class="row">
+				<div class="span2 offset5">
+					<%= f.submit "Join", class: "btn btn-large btn-primary" %>
+				</div>
+			</div>
+			<% end %>
+		</div>
+	</div>
+</div>
+
+

@@ -28,6 +28,8 @@ describe 'Static pages' do
       before{ visit about_path }
       it { should have_content('What is Achievements?') }
     end
+    
+  
    
 
 end

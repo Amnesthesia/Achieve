@@ -1,0 +1,27 @@
+<% provide(:title, @user.first_name + " " + @user.last_name) %>
+<div class="banner-thin">
+	<div class="container lower-banner">
+		<div class="row">
+			<div class="span2 pic"><%= gravatar_for @user %></div>	
+			<div class="span10 title">
+				<h1><%= @user.first_name + " " + @user.last_name + " (" +@user.username+")" %></h1>
+			</div>
+		</div>
+    </div>
+</div>
+
+<div class="content-wrapper">
+	<div class="container bgimg">
+		<div class="row article">
+			<aside class="span3 article-content">
+			
+			</aside>
+			<div class="span8 article-content">
+		
+			</div>
+	</div>
+</div>
+</div>
+
+
+

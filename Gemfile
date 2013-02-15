@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.9'
 gem 'bootstrap-sass', '2.1'
 gem 'bcrypt-ruby', '3.0.1'
+gem 'compass'
+gem 'country_select'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -36,6 +38,7 @@ group :test do
     gem 'capybara', '1.1.2'
     gem 'rb-inotify', '0.8.8', :require => false
     gem 'libnotify', '0.5.9'
+    gem 'factory_girl_rails', '4.1.0'
 end
 
 group :development, :test do
